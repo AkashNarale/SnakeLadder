@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Assignment1
 {
-    internal class snakeUC5
+    internal class snakeUC6
     {
         public static int start = 0;
         public static int position = 0;
-        public static int winposition = 100;
-
+        public static int winPosition = 100;
+        public static int diceRollNum = 0;
         public static int CheckDice()
         {
             Random random = new Random();
@@ -19,15 +20,16 @@ namespace Assignment1
             Console.WriteLine("Dice number :" + CheckDice);
             return CheckDice;
         }
+
         public static void CheckOption()
         {
             Random random = new Random();
             int CheckOption = random.Next(0, 3);
-            int dice = snakeUC5.CheckDice();
+            int dice = snakeUC6.CheckDice();
             switch (CheckOption)
             {
                 case 0:
-                    Console.WriteLine("No Play");
+                    Console.WriteLine("No play");
                     break;
                 case 1:
                     Console.WriteLine("Snake");
@@ -35,41 +37,44 @@ namespace Assignment1
                     {
                         Console.WriteLine("Restart the game");
                         position = start;
-                        Console.WriteLine("Player current position :" + position);
+                        Console.WriteLine("Player current position" + position);
                     }
                     else
                     {
                         position -= dice;
-                        Console.WriteLine("Player current position :" + position);
+                        Console.WriteLine("Player current position" + position);
                     }
                     break;
                 case 2:
                     Console.WriteLine("Ladder");
-                    if ((position + dice) > winposition)
+                    if ((position + dice) > winPosition)
                     {
-                        Console.WriteLine("Player current position is above 100");
+                        Console.WriteLine("Player position is above 100");
                         position -= dice;
-                        Console.WriteLine("Player current position: " + position);
+                        Console.WriteLine("Player current position" + position);
                     }
-                    else if ((position + dice) == winposition)
+                    else if ((position + dice) == winPosition)
                     {
-                        Console.WriteLine("Win the game");
-                        position = winposition;
-                        Console.WriteLine("Player current position: " + position);
+                        Console.WriteLine("Wins the game");
+                        position = winPosition;
+                        Console.WriteLine("Player current position" + position);
                     }
                     else
                     {
                         position += dice;
-                        Console.WriteLine("Player current position: " + position);
+                        Console.WriteLine("Player current position" + position);
                     }
                     break;
             }
         }
         public static void winningPosition()
         {
-            while (position < winposition)
+            //Repetation loop till reach winposition
+            while (position < winPosition)
             {
-                snakeUC5.CheckOption();
+                snakeUC6.CheckOption();
+                diceRollNum++;
+                Console.WriteLine("Number of times dice rolled :" + diceRollNum);
             }
         }
     }
